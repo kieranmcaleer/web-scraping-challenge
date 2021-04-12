@@ -7,7 +7,7 @@ from splinter import Browser
 from webdriver_manager.chrome import ChromeDriverManager
 import pandas as pd
 
-def scrape():
+def scrape1():
     mars_final_dict={
         "news_title": scrape_news()[0],
         "news_description": scrape_news()[1],
@@ -98,4 +98,4 @@ def hemisphere_finder():
 
 
 if __name__ == "__main__":
-    print(scrape())
+    print(scrape1())
