@@ -7,6 +7,18 @@ from splinter import Browser
 from webdriver_manager.chrome import ChromeDriverManager
 import pandas as pd
 
+def scrape():
+    mars_final_dict={
+        "news_title": scrape_news()[0],
+        "news_description": scrape_news()[1],
+        "image_url":image_finder(),
+        "fact_table":table_finder(),
+        "hemisphere_dict":hemisphere_finder()
+
+    }
+
+    return mars_final_dict
+
 
 def scrape_news():
     url = "https://mars.nasa.gov/news/"
@@ -43,6 +55,8 @@ def table_finder():
     return mars_html
 
 def hemisphere_finder():
+    executable_path = {'executable_path': ChromeDriverManager().install()}
+    browser = Browser('chrome', **executable_path, headless=False)
     base_url="https://astrogeology.usgs.gov"
     url = "https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars"
     browser.visit(url)
@@ -78,5 +92,10 @@ def hemisphere_finder():
         new_dict={"title":i[0], "image_url":i[1]}
         dict_list.append(new_dict)
 
-        
+
     return dict_list
+
+
+
+if __name__ == "__main__":
+    print(scrape())
